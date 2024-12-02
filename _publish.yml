@@ -1,0 +1,4 @@
+- source: example.qmd
+  netlify:
+    - id: ece98aad-2ebd-4d50-8968-9d9bb6edf5bf
+      url: https://warm-zuccutto-46316a.netlify.app

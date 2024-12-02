@@ -38,6 +38,11 @@ jobs:
        env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
+     - name: Publish to Netlify
+       run: |
+        quarto publish netlify example.qmd
+       env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
      
      
      
