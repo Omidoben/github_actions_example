@@ -1,0 +1,49 @@
+name: Rendering Example file
+on:
+  push:
+    branches:
+      - main
+jobs:
+  render_my_file:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v4.2.2
+       
+     - name: Install Quarto CLI
+       uses: quarto-dev/quarto-actions/setup@v2
+       with:
+        version: 1.4.515
+        
+     - name: Install R packages
+       run: |
+        Rscript -e "install.packages('renv', repos = 'https://packagemanager.posit.co/cran/latest')"
+        Rscript -e "renv::restore(repos = 'https://packagemanager.posit.co/cran/latest')"
+        
+     - name: Rerender Quarto file
+       run: |
+        quarto render example.qmd
+        
+     - name: Commit example.md file
+       run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add example.md
+        git commit -m "Update example.md from example.qmd"
+        git push
+       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
